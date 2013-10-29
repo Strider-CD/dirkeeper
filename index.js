@@ -52,7 +52,7 @@ module.exports = function(opts, cb) {
       var statFuncs = []
       files.forEach(function(f) {
         statFuncs.push(function(cb) {
-          fs.stat(path.join(opts.baseDir, f), function(err, res) {
+          fs.stat(path.join(baseDir, f), function(err, res) {
             // Might want to ignore errors?
             if (err) return cb(err)
             // Ignore non-directories
@@ -70,5 +70,5 @@ module.exports = function(opts, cb) {
       })
     }
 
-    fs.readdir(opts.baseDir, baseDirResults)
+    fs.readdir(baseDir, baseDirResults)
 }
