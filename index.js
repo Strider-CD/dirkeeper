@@ -9,6 +9,12 @@ module.exports = function(opts, cb) {
     var baseDir = opts.baseDir
 
     var pruneToCount = function(count, dirs, cb) {
+      
+      // count >= dirs.length means prune nothing
+      if (count >= dirs.length) {
+        return cb(null, null)
+      }
+
       // count of 0 means prune everything
       if (count === 0) {
         count = dirs.length

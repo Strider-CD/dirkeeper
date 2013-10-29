@@ -96,4 +96,16 @@ describe('#dirkeeper', function() {
     })
   })
 
+  it('should do nothing if count >= actual number of subdirs', function(done) {
+
+    keeper({ baseDir: TEN_SUBDIRS, count: 10 }, function(err) {
+
+      fs.readdir(TEN_SUBDIRS, function(err, files) {
+        expect(files).to.have.length(10)
+        done()
+      })
+
+    })
+  })
+
 })
