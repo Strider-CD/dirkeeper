@@ -1,0 +1,31 @@
+{
+  "name": "dirkeeper",
+  "version": "0.0.0",
+  "description": "Prune a directory to contain a set number of sub-directories, retention policy is recency",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R tap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/FrozenRidge/dirkeeper.git"
+  },
+  "keywords": [
+    "filesystem",
+    "backup"
+  ],
+  "author": "Niall O'Higgins <niallo@frozenridge.co>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/FrozenRidge/dirkeeper/issues"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.13.0"
+  },
+  "dependencies": {
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.2",
+    "async": "~0.2.9"
+  }
+}
