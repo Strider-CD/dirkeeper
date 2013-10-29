@@ -49,9 +49,8 @@ module.exports = function(opts, cb) {
         return cb(null, null)
       }
 
-      var statFuncs = []
-      files.forEach(function(f) {
-        statFuncs.push(function(cb) {
+      var statFuncs = files.map(function(f) {
+        return function(cb) {
           fs.stat(path.join(baseDir, f), function(err, res) {
             // Might want to ignore errors?
             if (err) return cb(err)
@@ -61,7 +60,7 @@ module.exports = function(opts, cb) {
             }
             return cb(null, null)
           })
-        })
+        }
       })
 
       async.parallel(statFuncs, function(err, dirs) {
