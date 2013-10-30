@@ -1,6 +1,5 @@
 var async  = require('async')
 var fs     = require('fs')
-var mkdir  = require('mkdirp')
 var path   = require('path')
 var rmdir  = require('rimraf')
 
