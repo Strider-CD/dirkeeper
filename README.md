@@ -17,7 +17,7 @@ Usage
 var keeper = require('dirkeeper')
 
 
-// You wish to make '/myDir' only contain the 5 oldest sub-directories
+// You wish to make '/myDir' only contain the 5 newest sub-directories
 
 keeper({count: 5, baseDir: '/myDir'}, function(err) {
   if (err) throw err
