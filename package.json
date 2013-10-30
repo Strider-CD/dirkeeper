@@ -1,6 +1,6 @@
 {
   "name": "dirkeeper",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Prune a directory to contain a set number of sub-directories, retention policy is recency",
   "main": "index.js",
   "scripts": {
