@@ -11,6 +11,15 @@ var EMPTY_DIR = "/tmp/dirkeeper.test.empty"
 var FOUR_SUBDIRS = "/tmp/dirkeeper.test.four"
 var TEN_SUBDIRS = "/tmp/dirkeeper.test.ten"
 
+// Return only directories from the list of file names
+function filterDirs(base, files) {
+  return files.filter(function(f) {
+    var stat = fs.statSync(path.join(base, f))
+    if (!stat.isDirectory()) return
+    return f
+  })
+}
+
 function makeDirs(baseDir, numDirs, cb) {
   var count = 0
 
@@ -49,7 +58,10 @@ describe('#dirkeeper', function() {
           makeDirs(TEN_SUBDIRS, 10, cb)
         })
       }
-    ], done)
+    ], function(err) {
+      fs.writeFileSync(path.join(TEN_SUBDIRS, "a_test_file"), "foobar")
+      done()
+    })
   })
 
   after(function(done) {
@@ -89,7 +101,8 @@ describe('#dirkeeper', function() {
     keeper({ baseDir: FOUR_SUBDIRS, count: 0 }, function(err) {
 
       fs.readdir(FOUR_SUBDIRS, function(err, files) {
-        expect(files).to.have.length(0)
+        var dirs = filterDirs(TEN_SUBDIRS, files)
+        expect(dirs).to.have.length(0)
         done()
       })
 
@@ -101,10 +114,25 @@ describe('#dirkeeper', function() {
     keeper({ baseDir: TEN_SUBDIRS, count: 10 }, function(err) {
 
       fs.readdir(TEN_SUBDIRS, function(err, files) {
-        expect(files).to.have.length(10)
+        var dirs = filterDirs(TEN_SUBDIRS, files)
+        expect(dirs).to.have.length(10)
         done()
       })
 
+    })
+  })
+
+  it('should correctly prune oldest directories when needed', function(done) {
+    fs.readdir(TEN_SUBDIRS, function(err, origFiles) {
+      keeper({ baseDir: TEN_SUBDIRS, count: 5 }, function(err) {
+        fs.readdir(TEN_SUBDIRS, function(err, files) {
+          var dirs = filterDirs(TEN_SUBDIRS, files)
+          expect(dirs).to.have.length(5)
+          // the earliest dir names are the oldest. see makeDirs().
+          expect(dirs).to.not.contain(['tmpfile.0', 'tmpfile.1', 'tmpfile.2', 'tmpfile.3', 'tmpfile.4'])
+          done()
+        })
+      })
     })
   })
 

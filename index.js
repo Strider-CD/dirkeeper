@@ -70,7 +70,7 @@ module.exports = function(opts, cb) {
 
       async.parallel(statFuncs, function(err, dirs) {
         if (err) return cb(err)
-        pruneToCount(opts.count, dirs, cb)
+        pruneToCount(opts.count, dirs.filter(function(d) { if (!d) return; return d }), cb)
       })
     }
 
