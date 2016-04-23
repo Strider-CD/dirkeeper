@@ -124,12 +124,14 @@ describe('#dirkeeper', function() {
 
   it('should correctly prune oldest directories when needed', function(done) {
     fs.readdir(TEN_SUBDIRS, function(err, origFiles) {
-      keeper({ baseDir: TEN_SUBDIRS, count: 5 }, function(err) {
+      keeper({ baseDir: TEN_SUBDIRS, count: 3 }, function(err) {
         fs.readdir(TEN_SUBDIRS, function(err, files) {
           var dirs = filterDirs(TEN_SUBDIRS, files)
-          expect(dirs).to.have.length(5)
+          expect(dirs).to.have.length(3)
           // the earliest dir names are the oldest. see makeDirs().
-          expect(dirs).to.not.contain(['tmpfile.0', 'tmpfile.1', 'tmpfile.2', 'tmpfile.3', 'tmpfile.4'])
+          expect(dirs).to.not.contain([
+            'tmpfile.0', 'tmpfile.1', 'tmpfile.2', 'tmpfile.3', 'tmpfile.4', 'tmpfile.5', 'tmpfile.6',
+          ])
           done()
         })
       })

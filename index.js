@@ -8,15 +8,10 @@ module.exports = function(opts, cb) {
     var baseDir = opts.baseDir
 
     var pruneToCount = function(count, dirs, cb) {
-      
+
       // count >= dirs.length means prune nothing
       if (count >= dirs.length) {
         return cb(null, null)
-      }
-
-      // count of 0 means prune everything
-      if (count === 0) {
-        count = dirs.length
       }
 
       // sort by mtime, oldest first
@@ -24,8 +19,10 @@ module.exports = function(opts, cb) {
         return a.stats.mtime.getTime() > b.stats.mtime.getTime()
       })
 
-      // trim to *count* entries
-      dirs = dirs.slice(0, count)
+      // trim all but *count* newest entries
+      if (count !== 0) {
+        dirs = dirs.slice(0, -count)
+      }
 
       // delete *count* oldest directories
       var rmFuncs = []
