@@ -13,38 +13,28 @@ Usage
 =====
 
 ```javascript
-
-var keeper = require('dirkeeper')
-
+var keeper = require('dirkeeper');
 
 // You wish to make '/myDir' only contain the 5 newest sub-directories
-
-keeper({count: 5, baseDir: '/myDir'}, function(err) {
-  if (err) throw err
-  console.log("pruned")
-})
-
-
+keeper({ count: 5, baseDir: '/myDir' }, function(err) {
+  if (err) throw err;
+  console.log('pruned');
+});
 ```
 
 A count of 0 means prune all sub-directories:
 
 ```javascript
-
-var keeper = require('dirkeeper')
-
+var keeper = require('dirkeeper');
 
 // You wish to make '/myDir' contain no sub-directories:
-
-keeper({count: 0, baseDir: '/myDir'}, function(err) {
-  if (err) throw err
-  console.log("pruned everything")
-})
-
-
+keeper({ count: 0, baseDir: '/myDir' }, function(err) {
+  if (err) throw err;
+  console.log('pruned everything');
+});
 ```
 
-Additionally, a count >= the actual number of sub-directories means prune nothing.
+Additionally, a count `>=` the actual number of sub-directories means prune nothing.
 
 
 Tests
