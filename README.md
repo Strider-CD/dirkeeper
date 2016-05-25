@@ -7,7 +7,7 @@ first.
 Installation
 ============
 
-`npm install dirkeeper`
+`npm install dirkeeper --save`
 
 Usage
 =====
