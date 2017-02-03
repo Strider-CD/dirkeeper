@@ -1,6 +1,8 @@
 dirkeeper
 =========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Strider-CD/dirkeeper.svg)](https://greenkeeper.io/)
+
 Prune a directory to contain a set number of sub-directories, retention policy is recency. That is to say, oldest sub-directories are pruned
 first.
 
